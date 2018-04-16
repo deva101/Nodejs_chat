@@ -1,0 +1,46 @@
+<%- include('../header')  %>
+
+<div class="center-content">
+	<div class="ui centered grid container " style="padding-bottom: 120px">
+		<div class="sixteen wide mobile eight wide tablet six wide computer column">
+
+			<% if (message.length > 0) { %>
+				
+				<div class="ui attached error message ">
+					<div class="header">
+						An error occured !
+					</div>
+					<p><%= message %></p>
+				</div>
+			<%	}  %>
+
+			<form class="ui form attached fluid  segment" method="POST" action="/auth/login">
+				
+				<div class="field">
+					<div class="ui left icon input">
+					  <i class=" mail icon"></i>
+					  <input name="email" placeholder="Email" type="text">
+			  		</div>
+			  	</div>
+
+			  	<div class="field">
+					<div class="ui left icon input">
+					  <i class="lock icon"></i>
+					  <input name="password" placeholder="Password" type="password">
+					</div>
+			  	</div>
+
+			  	<button class="ui fluid large blue button" type="Submit">Login</button>
+
+			</form>
+
+			<div class="ui bottom attached success message">
+			  <!-- <i class="icon help"></i> -->
+			  Not a member yet? <a href="/auth/register/">Join</a> instead.
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<%- include('../footer')  %>

@@ -1,0 +1,96 @@
+<%- include('header') %>
+s
+<div class="center-content">
+	<div class="ui centered grid container ">
+		<div class="sixteen wide mobile ten wide tablet ten wide computer column">
+			<div class="ui comments">
+			  
+			  <div id="chatbox" style="height:300px ; overflow-y: scroll; border: 1px solid #ccc">
+			  	
+			  </div>
+
+			  
+			  
+			  <form id="msgForm" class="ui reply form">
+			    <div class="field">
+			      <input type="text" size="30" placeholder="Enter message" id="message">
+			    </div>
+
+			    <div class="field">
+			    Enter Time (in mins)
+			      <input type="number" placeholder="Enter time in minutes" id="time" min="0">
+			    </div>
+
+			   
+			   <div class="field">
+			    <input type="submit" value="send message" class="ui primary button">
+			   </div>
+			  </form>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+	var socket = io.connect();
+	var $chatbox = $('#chatbox');
+	var $msgForm = $('#msgForm');
+	var $message = $('#message');
+	var $time = $('#time');
+
+	$msgForm.submit(function(e){
+		e.preventDefault();
+		var convId = '<%= convId %>';
+		var data = {'user' : '<%= user._id %>' , 'msg' : $message.val(), 'convId' : convId};
+
+		if ($time.val() > 0) {
+			console.log('send this message' + $time.val() + ' mins later');
+			data.time = $time.val();
+
+			$.ajax({
+				url : '/message/s/',
+				type : 'POST',
+				data : data,
+				success: function(response){
+					console.log(response);
+				}
+			});
+
+		}else{
+			socket.emit('send_message', data);
+		}
+
+		$message.val('');
+		$time.val('');	
+	});
+
+	socket.emit('join', '<%= convId %>');
+
+	socket.on('new_message', function(data){
+		console.log(data);
+		var htmlText = '';
+		htmlText += '<div class="comment">';
+		htmlText +=		'<a class="avatar">';
+		htmlText +=	  		'<img src="/images/avatar/small/joe.jpg">';
+		htmlText +=	  	'</a>';
+		htmlText +=	  	'<div class="content">';
+		htmlText +=	  		'<a class="author">' + data.sender +'</a>';
+		htmlText +=			'<div class="text">';
+		htmlText +=	  	     data.msg
+		htmlText +=			'</div>';
+		htmlText +=	  	'</div>';
+		htmlText +=	  	'</div>';
+
+		$chatbox.append(htmlText);
+	});
+
+</script>
+
+<%- include('footer') %>

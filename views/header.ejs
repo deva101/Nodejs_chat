@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Nodejs App</title>
+	<link rel="stylesheet" type="text/css" href="/stylesheets/semantic.css">
+	<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/components/icon.min.css'>
+	<script type="text/javascript" src="/javascripts/jquery.js" ></script>
+  <script src="/socket.io/socket.io.js" ></script>
+
+</head>
+<body>
+
+<div class="ui container-fluid large menu">
+  <div class="ui container">
+    <div class="right menu">
+      <% if(typeof user === 'undefined'){ %>
+      <div class="item">
+        <a href="/auth/login" class="ui button">Log in</a>
+      </div>
+      <div class="item">
+        <a href="/auth/register" class="ui primary button">Sign Up</a>
+      </div>
+      <% }else{ %>
+      <div class="item">
+        <a><%= user.name.firstName + ' ' + user.name.lastName + ' ' %></a>
+      </div>
+      <div class="item">
+        <a class="ui button" href="/auth/logout">Logout</a>
+      </div>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<% if(typeof user != 'undefined'){ %>
+<b>your unique id:</b><%= ' ' + user.id %>
+<% }%>

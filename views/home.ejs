@@ -1,0 +1,69 @@
+<%- include('header') %>
+
+
+<div class="center-content">
+	<div class="ui centered grid container">
+		<div class="sixteen wide mobile ten wide tablet twelve wide computer column">
+
+			
+			<div class="ui message">
+			  <!-- <i class="icon help"></i> -->
+			  Click and enter any chat room 
+			</div>
+
+			<div class="ui cards">
+
+
+			<% if(typeof chatRoom != 'undefined'){
+				Object.keys(chatRoom).forEach(function(key){
+			%>
+
+			  <div class="card">
+			    <div class="content">
+			      <div class="header"><%= chatRoom[key] %></div>
+			      <div class="description">
+			        ChatRoom
+			      </div>
+			    </div>
+			    <a href="<%= '/chat/' + key %>" class="ui bottom attached button">
+			     Enter ChatRoom
+			    </a>
+			  </div>
+			 
+
+			<%
+				})
+			%>	
+
+			<% } %>
+
+			</div>
+
+		</div>
+
+		<div class="sixteen wide mobile six wide tablet four wide computer column">
+
+			<div class="ui message">
+			  <!-- <i class="icon help"></i> -->
+			  Create a new Chat Room
+			</div>
+			
+			<form class="ui form segment" method="POST" action="/chat">
+				
+				<div class="field">
+					<div class="ui input">
+					  <input name="chatRoom"  type="text">
+			  		</div>
+			  	</div>
+				<input class="ui button" value="Create ChatRoom" type="Submit">
+			</form>
+			
+
+		</div>
+	</div>
+</div>
+
+
+
+
+<%- include('footer') %>
