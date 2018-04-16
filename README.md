@@ -14,7 +14,6 @@ It includes features real time chat and scheduled messages
 * Socket.io
 * Semantic UI
 * Jquery 2.2.3
-* CodeIgniter 3.1.5
 
 ### Running the service
 
